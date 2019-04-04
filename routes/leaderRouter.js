@@ -47,25 +47,25 @@ router.route('/')
 router.route('/:leaderId')
 .get((req,res,next) => {
     Leaders.findById(req.params.leaderId)
-    .then((dish) => {
+    .then((leader) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(dish);
+        res.json(leader);
     }, (err) => next(err))
     .catch((err) => next(err));
 })
 .post(authenticate.verifyUser,(req, res, next) => {
     res.statusCode = 403;
-    res.end('POST operation not supported on /dishes/'+ req.params.leaderId);
+    res.end('POST operation not supported on /Leaders/'+ req.params.leaderId);
 })
 .put(authenticate.verifyUser,(req, res, next) => {
     Leaders.findByIdAndUpdate(req.params.leaderId, {
         $set: req.body
     }, { new: true })
-    .then((dish) => {
+    .then((leader) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(dish);
+        res.json(leader);
     }, (err) => next(err))
     .catch((err) => next(err));
 })
@@ -78,5 +78,6 @@ router.route('/:leaderId')
     }, (err) => next(err))
     .catch((err) => next(err));
 });
+
 
 module.exports = router;
