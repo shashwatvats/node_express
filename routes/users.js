@@ -13,6 +13,24 @@ app.use(express.urlencoded({ extended: false }));
 
 const User = require('../models/user.model');
 
+
+router.get('/',authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next)=>{
+  if( req.user.admin === true){
+    User.find({})
+    .then((users) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(users);
+    }, (err) => next(err))
+    .catch((err) => next(err));
+  }
+  else{
+    var err = new Error('You are not authorized to perform this operation!');
+        err.status = 403;
+        next(err);
+  }
+});
+
 router.post('/signup', (req, res, next) => {
   User.register(new User({username: req.body.username}), 
     req.body.password, (err, user) => {
