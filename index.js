@@ -33,6 +33,9 @@ app.use('/imageUpload',require('./routes/uploadRouter'));
 
 //routes for dishes
 app.use('/dishes',require('./routes/dishRouter'));
+
+//routes for favorite
+app.use('/favorite',require('./routes/favoriteRouter'));
   
 //routes for promo
 app.use('/promotions',require('./routes/promoRouter'));
