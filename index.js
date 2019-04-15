@@ -29,7 +29,7 @@ app.use(passport.initialize());
 
 app.use('/users', require('./routes/users'));
 
-
+app.use('/imageUpload',require('./routes/uploadRouter'));
 
 //routes for dishes
 app.use('/dishes',require('./routes/dishRouter'));
